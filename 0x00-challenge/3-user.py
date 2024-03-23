@@ -12,15 +12,13 @@ class User():
     - id: public string unique (uuid)
     - password: private string hash in MD5
     """
-
-    __password = None
-
     def __init__(self):
         """
         Initialize a new user:
         - assigned an unique `id`
         """
         self.id = str(uuid.uuid4())
+        self.__password = None
 
     @property
     def password(self):
@@ -37,7 +35,7 @@ class User():
         - `None` if `pwd` is not a string
         - Hash `pwd` in MD5 before assign to `__password`
         """
-        if pwd is not None and isinstance(pwd, str):
+        if pwd is None or type(pwd) is not str:
             self.__password = None
         else:
             self.__password = hashlib.md5(pwd.encode()).hexdigest().lower()
